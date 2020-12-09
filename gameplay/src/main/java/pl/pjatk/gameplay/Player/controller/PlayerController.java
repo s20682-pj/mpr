@@ -38,6 +38,11 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.save(player));
     }
 
+    @PostMapping("/attacker/{attackerId}/defender/{defenderId}")
+    public ResponseEntity<Player> attack(@PathVariable long attackerId, @PathVariable long defenderId){
+        return ResponseEntity.ok(playerService.attack(attackerId,defenderId));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Player> update(@PathVariable long id, @RequestBody Player playerWithUpdatedProperties){
         return ResponseEntity.ok(playerService.update(id,playerWithUpdatedProperties));
@@ -49,4 +54,6 @@ public class PlayerController {
 
         return ResponseEntity.ok().build();
     }
+
+
 }

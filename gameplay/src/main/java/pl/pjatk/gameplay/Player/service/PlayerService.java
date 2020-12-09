@@ -11,6 +11,7 @@ import java.util.Optional;
 @Service
 public class PlayerService {
     private PlayerRepository playerRepository;
+    private DamageService damageService;
 
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
@@ -21,14 +22,6 @@ public class PlayerService {
     }
 
     public Optional<Player> findbyId(long id){
-        List<Player> players = new ArrayList<>();
-//        players.add(new Player((long) 1,"Player",20,15,10));
-//       players.add(new Player((long) 2,"Player 2",20,15,10));
-
- //       players.forEach(player -> player.setMP(10));
-
- //       return players.stream().filter(player -> player.getId() == id).findFirst();
-
         return playerRepository.findById(id);
     }
 
@@ -49,4 +42,11 @@ public class PlayerService {
         }
     }
 
+    public Player attack(long attackerId, long defenderId) {
+        Player attacker = playerRepository.findById(attackerId).get();
+        Player defender = playerRepository.findById(defenderId).get();
+        defender.setHP(defender.getHP() - attacker.getAttack());
+        playerRepository.save(defender);
+        return defender;
+    }
 }
