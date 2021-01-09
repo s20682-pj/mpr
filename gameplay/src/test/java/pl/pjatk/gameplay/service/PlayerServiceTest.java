@@ -21,6 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
 @ExtendWith(MockitoExtension.class)
 class PlayerServiceTest {
     @Mock
@@ -77,17 +78,7 @@ class PlayerServiceTest {
         //then
         assertThat(newPlayer.getId()).isEqualTo(player2.getId());
     }
-    @Test
-    void updatedExistingPlayer() {
-        //given
-        Player player = new Player(1L, "A", 20, 10, 10);
-        when(playerService.update(1L, player)).thenReturn(player);
-        //when
-        Player updatedPlayer = playerService.save(player);
-        //then
-        assertThat(updatedPlayer).isNotEqualTo(player);
-    }
-
+    
     @Test
     void shouldDelete(){
         //Given
