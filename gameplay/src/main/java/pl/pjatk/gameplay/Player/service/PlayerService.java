@@ -13,8 +13,9 @@ public class PlayerService {
     private PlayerRepository playerRepository;
     private DamageService damageService;
 
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, DamageService damageService) {
         this.playerRepository = playerRepository;
+        this.damageService = damageService;
     }
 
     public List<Player> findAll(){
@@ -33,6 +34,10 @@ public class PlayerService {
         playerRepository.deleteById(id);
     }
 
+    public void deleteAll(){
+        playerRepository.deleteAll();
+    }
+
     public Player update(Long id, Player updatedPlayer) {
         updatedPlayer.setId(id);
         if (findbyId(updatedPlayer.getId()).isPresent()) {
@@ -42,10 +47,10 @@ public class PlayerService {
         }
     }
 
-    public Player attack(long attackerId, long defenderId) {
-        Player attacker = playerRepository.findById(attackerId).get();
-        Player defender = playerRepository.findById(defenderId).get();
-        defender.setHP(defender.getHP() - attacker.getAttack());
+    public Player attack(Long attackerId, Long defenderId) {
+        Player attacker = findbyId(attackerId).get();
+        Player defender = findbyId(defenderId).get();
+        defender = damageService.attack(attacker, defender);
         playerRepository.save(defender);
         return defender;
     }

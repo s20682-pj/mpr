@@ -42,4 +42,12 @@ public class DamageService {
         player.setHP(0);
         return player;
     }
+
+    public Player attack(Player attacker, Player defender) {
+        defender.setHP(
+                defender.getHP() - attacker.getAttack()
+        );
+        return defender;
+    }
+
 }
