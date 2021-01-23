@@ -1,6 +1,7 @@
 package pl.pjatk.gameplay.Player.service;
 
 import org.springframework.stereotype.Service;
+import pl.pjatk.gameplay.Player.model.Message;
 import pl.pjatk.gameplay.Player.model.Player;
 import pl.pjatk.gameplay.Player.repository.PlayerRepository;
 
@@ -23,10 +24,16 @@ public class PlayerService {
     }
 
     public Optional<Player> findbyId(long id){
-        return playerRepository.findById(id);
+       if (id ==10) {
+           throw new RuntimeException("abc");
+       } else {
+           return playerRepository.findById(id);
+       }
     }
 
     public Player save(Player player){
+        player.getMessageList().add(new Message("some conteny 1",player));
+        player.getMessageList().add(new Message("some conteny 2",player));
         return playerRepository.save(player);
     }
 
@@ -54,4 +61,5 @@ public class PlayerService {
         playerRepository.save(defender);
         return defender;
     }
+
 }
