@@ -5,8 +5,10 @@ import com.pjatk.car_rental.model.Car;
 import com.pjatk.car_rental.repository.CarRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -60,8 +62,39 @@ public class CarService {
     }
 
     public List<Car> showNotRented() throws CarException{
-        if (carRepository.findAll().size() > 0 || saveCar(Car).getRented() == 0){
-            return carRepository.findAll();
+        List<Car> cars = carRepository.findAll();
+        if (cars.size() > 0){
+            return cars.stream().filter(car -> car.getRented() == 0).collect(Collectors.toList());
+        }
+        else{
+            throw new CarException();
+        }
+    }
+
+    public List<Car> showRented() throws CarException{
+        List<Car> cars = carRepository.findAll();
+        if (cars.size() > 0){
+            return cars.stream().filter(car -> car.getRented() == 1).collect(Collectors.toList());
+        }
+        else{
+            throw new CarException();
+        }
+    }
+
+    public List<Car> showOlderThan(Date date) throws CarException{
+        List<Car> cars = carRepository.findAll();
+        if (cars.size() > 0){
+            return cars.stream().filter(car -> car.getManufacture_date().before(date)).collect(Collectors.toList());
+        }
+        else{
+            throw new CarException();
+        }
+    }
+
+    public List<Car> showYoungerThan(Date date) throws CarException{
+        List<Car> cars = carRepository.findAll();
+        if (cars.size() > 0){
+            return cars.stream().filter(car -> car.getManufacture_date().after(date)).collect(Collectors.toList());
         }
         else{
             throw new CarException();
