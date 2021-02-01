@@ -13,24 +13,24 @@ public class Customer {
     private String name;
     private String surname;
     private String phone_number;
-    private int have_car;
     private int rents;
 
-    public Customer(Long id, String name, String surname, String phone_number, int have_car, int rents) {
+    public Customer(Long id, String name, String surname, String phone_number, int rents) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.phone_number = phone_number;
-        this.have_car = have_car;
         this.rents = rents;
     }
 
-    public Customer(String name, String surname, String phone_number, int have_car, int rents) {
+    public Customer(String name, String surname, String phone_number, int rents) {
         this.name = name;
         this.surname = surname;
         this.phone_number = phone_number;
-        this.have_car = have_car;
         this.rents = rents;
+    }
+
+    public Customer() {
     }
 
     public Long getId() {
@@ -63,14 +63,6 @@ public class Customer {
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
-    }
-
-    public int getHave_car() {
-        return have_car;
-    }
-
-    public void setHave_car(int have_car) {
-        this.have_car = have_car;
     }
 
     public int getRents() {
