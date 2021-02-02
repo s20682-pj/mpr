@@ -64,12 +64,22 @@ public class CarController {
     }
 
     @GetMapping("/older/{date}")
-    public ResponseEntity<List<Car>> showOlderThan(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) throws CarException {
+    public ResponseEntity<List<Car>> showOlderThan(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
         return ResponseEntity.ok(carService.showOlderThan(date));
     }
 
     @GetMapping("/younger/{date}")
-    public ResponseEntity<List<Car>> showYoungerThan(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) throws CarException {
+    public ResponseEntity<List<Car>> showYoungerThan(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
         return ResponseEntity.ok(carService.showYoungerThan(date));
+    }
+
+    @GetMapping("/plate/{plate}")
+    public ResponseEntity<List<Car>> findByPlate(@PathVariable String plate) throws CarException{
+        return ResponseEntity.ok(carService.findByPlate(plate));
+    }
+
+    @GetMapping("/brand/{brand}/model/{model}")
+    public ResponseEntity<List<Car>> findByBrandAndModel(@PathVariable String brand,@PathVariable String model) throws CarException{
+        return ResponseEntity.ok(carService.findByBrandAndModel(brand,model));
     }
 }

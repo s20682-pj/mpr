@@ -81,20 +81,30 @@ public class CarService {
         }
     }
 
-    public List<Car> showOlderThan(Date date) throws CarException{
+    public List<Car> showOlderThan(Date date){
         List<Car> cars = carRepository.findAll();
-        if (cars.size() > 0){
-            return cars.stream().filter(car -> car.getManufacture_date().before(date)).collect(Collectors.toList());
+        return cars.stream().filter(car -> car.getManufacture_date().before(date)).collect(Collectors.toList());
+    }
+
+    public List<Car> showYoungerThan(Date date){
+        List<Car> cars = carRepository.findAll();
+        return cars.stream().filter(car -> car.getManufacture_date().after(date)).collect(Collectors.toList());
+    }
+
+    public List<Car> findByPlate(String plate) throws CarException{
+        List<Car> cars = carRepository.findAll();
+        if (cars.size() > 0) {
+            return cars.stream().filter(car -> car.getPlate().equals(plate)).collect(Collectors.toList());
         }
         else{
             throw new CarException();
         }
     }
 
-    public List<Car> showYoungerThan(Date date) throws CarException{
+    public List<Car> findByBrandAndModel(String brand, String model) throws CarException{
         List<Car> cars = carRepository.findAll();
-        if (cars.size() > 0){
-            return cars.stream().filter(car -> car.getManufacture_date().after(date)).collect(Collectors.toList());
+        if (cars.size() > 0) {
+            return cars.stream().filter(car -> car.getBrand().equals(brand) && car.getModel().equals(model)).collect(Collectors.toList());
         }
         else{
             throw new CarException();
