@@ -3,8 +3,6 @@ package com.pjatk.car_rental.service;
 import com.pjatk.car_rental.exception.CarException;
 import com.pjatk.car_rental.model.Car;
 import com.pjatk.car_rental.repository.CarRepository;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

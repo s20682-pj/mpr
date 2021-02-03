@@ -53,7 +53,7 @@ public class ReservationServiceTest {
 
     @BeforeEach
     public void setCustomer(){
-        customer = new Customer(1L,"a","b","111111",0);;
+        customer = new Customer(1L,"a","b","111111",0);
     }
 
     @AfterEach
@@ -94,8 +94,37 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void rentCarProperly(){
+    public void rentCarProperly() throws ReservationException {
+        int value = 1;
 
+        when(carRepository.findById(1L)).thenReturn(Optional.of(car));
+        when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
+        Optional<Car> testRent = reservationService.rentCar(car.getId(),customer.getId());
+
+        assertThat(testRent.get().getRented()).isEqualTo(value);
+        assertThat(customer.getRents()).isEqualTo(value);
+    }
+
+    @Test
+    public void rentCarException(){
+        assertThatExceptionOfType(ReservationException.class).isThrownBy(() -> reservationService.rentCar(car.getId(),customer.getId()));
+    }
+
+    @Test
+    public void rentAlreadyRentedCar(){
+        car.setRented(1);
+
+        when(carRepository.findById(1L)).thenReturn(Optional.of(car));
+
+        assertThatExceptionOfType(ReservationException.class).isThrownBy(() -> reservationService.rentCar(car.getId(),customer.getId()));
+    }
+
+    @Test
+    public void rentWithoutCustomer(){
+
+        customerRepository.deleteAll();
+
+        assertThatExceptionOfType(ReservationException.class).isThrownBy(() -> reservationService.rentCar(car.getId(),customer.getId()));
     }
 
 

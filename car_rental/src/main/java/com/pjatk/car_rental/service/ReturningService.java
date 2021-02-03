@@ -22,7 +22,7 @@ public class ReturningService {
         if (car.isPresent()){
             int rented = car.get().getRented();
             if(rented == 0){
-                System.out.println("Car is not rented");
+                throw new ReturningException();
             }
             else{
                 car.get().setRented(0);

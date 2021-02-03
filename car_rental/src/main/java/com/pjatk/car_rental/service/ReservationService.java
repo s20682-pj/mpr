@@ -47,16 +47,16 @@ public class ReservationService {
         Optional<Car> carToRent = carRepository.findById(carId);
         Optional<Customer> rentingCustomer = customerRepository.findById(customerId);
         if (carToRent.isPresent() && rentingCustomer.isPresent()){
-            int rents = rentingCustomer.get().getRents();
-            int rented = carToRent.get().getRented();
-            if(rented == 0){
+            int customerRents = rentingCustomer.get().getRents();
+            int carRented = carToRent.get().getRented();
+            if(carRented == 0){
                 carToRent.get().setRented(1);
-                rentingCustomer.get().setRents(rents + 1);
+                rentingCustomer.get().setRents(customerRents + 1);
                 carService.saveCar(carToRent.get());
                 customerService.saveCustomer(rentingCustomer.get());
                 System.out.println("Car is rented");
             }else{
-                System.out.println("Car is not available to rent or customer doesn't exist");
+                throw new ReservationException();
             }
         }else{
             throw new ReservationException();

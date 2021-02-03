@@ -54,13 +54,19 @@ public class ReturningServiceTest {
     }
 
     @Test
-    public void returnNotPossibleCarNotRented() throws ReturningException {
+    public void returnNotPossibleCarNotRented(){
         car.setRented(0);
-        int rented = car.getRented();
 
         when(carRepository.findById(1L)).thenReturn(Optional.of(car));
-        Optional<Car> testCar = returningService.returnCar(car.getId());
 
-        assertThat(rented).isEqualTo(car.getRented());
+        assertThatExceptionOfType(ReturningException.class).isThrownBy(() -> returningService.returnCar(car.getId()));
+    }
+
+    @Test
+    public void returnCarThatDoesntExist(){
+
+        carRepository.deleteAll();
+
+        assertThatExceptionOfType(ReturningException.class).isThrownBy(() -> returningService.returnCar(car.getId()));
     }
 }
