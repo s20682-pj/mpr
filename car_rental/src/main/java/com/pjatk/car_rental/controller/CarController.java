@@ -1,10 +1,13 @@
 package com.pjatk.car_rental.controller;
 
 import com.pjatk.car_rental.exception.CarException;
+import com.pjatk.car_rental.exception.CustomerExpection;
 import com.pjatk.car_rental.exception.ReservationException;
+import com.pjatk.car_rental.exception.ReturningException;
 import com.pjatk.car_rental.model.Car;
 import com.pjatk.car_rental.service.CarService;
 import com.pjatk.car_rental.service.ReservationService;
+import com.pjatk.car_rental.service.ReturningService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +21,12 @@ import java.util.Optional;
 public class CarController {
     private CarService carService;
     private ReservationService reservationService;
+    private ReturningService returningService;
 
-    public CarController(CarService carService, ReservationService reservationService) {
+    public CarController(CarService carService, ReservationService reservationService, ReturningService returningService) {
         this.carService = carService;
         this.reservationService = reservationService;
+        this.returningService = returningService;
     }
 
     @GetMapping
@@ -92,8 +97,13 @@ public class CarController {
         return ResponseEntity.ok(reservationService.checkIfRented(id));
     }
     @GetMapping("/rent/{carId}/customer/{customerId}")
-    public ResponseEntity<Optional<Car>> rentCar(@PathVariable Long carId,@PathVariable Long customerId) throws ReservationException{
+    public ResponseEntity<Optional<Car>> rentCar(@PathVariable Long carId,@PathVariable Long customerId) throws ReservationException, CustomerExpection, CarException {
         return ResponseEntity.ok(reservationService.rentCar(carId,customerId));
+    }
+
+    @GetMapping("/return/{id}")
+    public ResponseEntity<Optional<Car>> returnCar(@PathVariable Long id) throws ReturningException{
+        return ResponseEntity.ok(returningService.returnCar(id));
     }
 
 }
