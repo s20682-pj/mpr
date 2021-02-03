@@ -10,9 +10,11 @@ import java.util.Optional;
 @Service
 public class ReturningService {
     private final CarRepository carRepository;
+    private final CarService carService;
 
-    public ReturningService(CarRepository carRepository) {
+    public ReturningService(CarRepository carRepository, CarService carService) {
         this.carRepository = carRepository;
+        this.carService = carService;
     }
 
     public Optional<Car> returnCar(Long id) throws ReturningException {
@@ -24,6 +26,7 @@ public class ReturningService {
             }
             else{
                 car.get().setRented(0);
+                carService.saveCar(car.get());
                 System.out.println("You returned the car");
             }
         }

@@ -35,13 +35,8 @@ public class CustomerService {
         }
     }
 
-    public Customer saveCustomer(Customer customer) throws CustomerExpection{
-        if (customer.getRents() != 0) {
-            throw new CustomerExpection();
-        }
-        else{
+    public Customer saveCustomer(Customer customer){
             return customerRepository.save(customer);
-        }
     }
 
     public void deleteAll() throws CustomerExpection{

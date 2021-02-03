@@ -80,12 +80,6 @@ public class CustomerServiceTest {
         assertThat(newCustomer.getId()).isEqualTo(customer2.getId());
     }
 
-//    @Test
-//    void shouldSaveExpection(){
-//        car.setRented(1);
-//        assertThatExceptionOfType(CustomerExpection.class).isThrownBy(() -> carService.saveCar(car));
-//    }
-
     @Test
     void shouldDelete() throws CustomerExpection {
         //Given

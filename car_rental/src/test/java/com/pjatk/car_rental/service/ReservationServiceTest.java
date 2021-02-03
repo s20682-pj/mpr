@@ -93,5 +93,10 @@ public class ReservationServiceTest {
         assertThat(rented).isEqualTo(car.getRented());
     }
 
+    @Test
+    public void rentCarProperly(){
+
+    }
+
 
 }

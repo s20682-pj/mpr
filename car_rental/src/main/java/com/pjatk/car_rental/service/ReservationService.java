@@ -43,7 +43,7 @@ public class ReservationService {
         return car;
     }
 
-    public Optional<Car> rentCar(Long carId, Long customerId) throws ReservationException, CarException, CustomerExpection {
+    public Optional<Car> rentCar(Long carId, Long customerId) throws ReservationException {
         Optional<Car> carToRent = carRepository.findById(carId);
         Optional<Customer> rentingCustomer = customerRepository.findById(customerId);
         if (carToRent.isPresent() && rentingCustomer.isPresent()){

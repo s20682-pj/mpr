@@ -35,13 +35,8 @@ public class CarService {
         }
     }
 
-    public Car saveCar(Car car) throws CarException{
-        if (car.getRented() != 0) {
-            throw new CarException();
-        }
-        else{
+    public Car saveCar(Car car){
             return carRepository.save(car);
-        }
     }
 
     public void deleteAll() throws CarException{

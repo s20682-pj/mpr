@@ -102,7 +102,7 @@ public class CarController {
     }
 
     @GetMapping("/return/{id}")
-    public ResponseEntity<Optional<Car>> returnCar(@PathVariable Long id) throws ReturningException{
+    public ResponseEntity<Optional<Car>> returnCar(@PathVariable Long id) throws ReturningException, CarException {
         return ResponseEntity.ok(returningService.returnCar(id));
     }
 
