@@ -1,8 +1,6 @@
 package com.pjatk.car_rental.service;
 
-import com.pjatk.car_rental.exception.CarException;
 import com.pjatk.car_rental.exception.CustomerExpection;
-import com.pjatk.car_rental.model.Car;
 import com.pjatk.car_rental.model.Customer;
 import com.pjatk.car_rental.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,8 +1,10 @@
 package com.pjatk.car_rental.controller;
 
 import com.pjatk.car_rental.exception.CarException;
+import com.pjatk.car_rental.exception.ReservationException;
 import com.pjatk.car_rental.model.Car;
 import com.pjatk.car_rental.service.CarService;
+import com.pjatk.car_rental.service.ReservationService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +17,11 @@ import java.util.Optional;
 @RequestMapping("/car")
 public class CarController {
     private CarService carService;
+    private ReservationService reservationService;
 
-    public CarController(CarService carService) {
+    public CarController(CarService carService, ReservationService reservationService) {
         this.carService = carService;
+        this.reservationService = reservationService;
     }
 
     @GetMapping
@@ -82,4 +86,14 @@ public class CarController {
     public ResponseEntity<List<Car>> findByBrandAndModel(@PathVariable String brand,@PathVariable String model) throws CarException{
         return ResponseEntity.ok(carService.findByBrandAndModel(brand,model));
     }
+
+    @GetMapping("/check/{id}")
+    public ResponseEntity<Optional<Car>> checkIfCarCanBeRented(@PathVariable Long id) throws ReservationException{
+        return ResponseEntity.ok(reservationService.checkIfRented(id));
+    }
+    @GetMapping("/rent/{carId}/customer/{customerId}")
+    public ResponseEntity<Optional<Car>> rentCar(@PathVariable Long carId,@PathVariable Long customerId) throws ReservationException{
+        return ResponseEntity.ok(reservationService.rentCar(carId,customerId));
+    }
+
 }
