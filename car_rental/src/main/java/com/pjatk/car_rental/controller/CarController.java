@@ -45,7 +45,7 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity<Car> saveCar(@RequestBody Car car) throws CarException{
+    public ResponseEntity<Car> saveCar(@RequestBody Car car){
         return ResponseEntity.ok(carService.saveCar(car));
     }
 

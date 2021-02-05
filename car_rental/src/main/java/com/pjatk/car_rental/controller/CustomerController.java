@@ -34,7 +34,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) throws CustomerExpection{
+    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer){
         return ResponseEntity.ok(customerService.saveCustomer(customer));
     }
 
